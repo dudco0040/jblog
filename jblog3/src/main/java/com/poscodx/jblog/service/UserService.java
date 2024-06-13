@@ -18,8 +18,7 @@ public class UserService {
 
 	// AuthInterceptor
 	public UserVo getUser(String id, String password) {
-		
-		return null;
+		return userRepository.findByNoAndPassword(id, password);
 	}
 
 }

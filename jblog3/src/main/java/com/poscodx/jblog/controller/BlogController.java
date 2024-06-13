@@ -11,8 +11,8 @@ public class BlogController {
 	@RequestMapping({"", "/{categoryNo}", "/{categoryNo}/{postNo}" })
 	public String index(
 		@PathVariable("id") String id,
-		@PathVariable("categoryNo") Long categoryNo,
-		@PathVariable("postNo") Long postNo) {
+		@PathVariable(value="categoryNo", required=false) Long categoryNo,
+		@PathVariable(value="postNo", required=false) Long postNo) {
 
 		return "blog/main";
 	}
@@ -26,7 +26,6 @@ public class BlogController {
 	// @Auth
 	@RequestMapping("/admin/category")
 	public String adminCategory(@PathVariable("id") String id) {
-		
 		return "blog/admin-category";
 	}
 	
