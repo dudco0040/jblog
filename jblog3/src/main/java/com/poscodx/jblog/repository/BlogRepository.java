@@ -16,7 +16,10 @@ public class BlogRepository {
 	public BlogVo find(String id) {
 		return sqlSession.selectOne("blog.find", id);
 	}
-	 
+
 	// 사이트 정보 변경하기 (update)
+	public Object update(BlogVo vo) {
+		return sqlSession.update("blog.update", vo);
+	}
 	
 }

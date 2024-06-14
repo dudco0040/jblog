@@ -13,8 +13,8 @@
 	<update id="update" parameterType="blogvo">
 		<![CDATA[
 			update blog
-			set title=#{title}, welcome=#{welcome}, profile=#{profile}, description=#{description}
-			where no = 1
+			set title=#{title}, logo=#{logo}
+			where id = #{id}
 		]]>
 	</update>
 	

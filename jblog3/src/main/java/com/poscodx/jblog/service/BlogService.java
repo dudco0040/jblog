@@ -17,5 +17,10 @@ public class BlogService {
 	public BlogVo getBlog(String id) {
 		return blogRepository.find(id);
 	}
+	
+	// 수정하기 
+	public void updateBlog(BlogVo vo) {
+		blogRepository.update(vo);
+	}
 
 }

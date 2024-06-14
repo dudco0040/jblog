@@ -26,7 +26,7 @@
 					<li><a href="">카테고리</a></li>
 					<li><a href="">글작성</a></li>
 				</ul>
-				<form action="${pageContext.request.contextPath }{id:(?!assets).*}/admin/update" enctype="multipart/form-data" method="post">
+				<form action="${pageContext.request.contextPath }/${blogVo.id}/admin/update" enctype="multipart/form-data" method="post">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
