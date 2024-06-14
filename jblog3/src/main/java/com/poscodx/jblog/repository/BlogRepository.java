@@ -22,4 +22,9 @@ public class BlogRepository {
 		return sqlSession.update("blog.update", vo);
 	}
 	
+	// 블로그 추가
+	public void insert(String id) {
+		sqlSession.insert("blog.insert", id);
+	}
+	
 }

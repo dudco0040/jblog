@@ -16,14 +16,18 @@ public class UserRepository {
 	}
 	
 	// 회원가입 
-	public int insert(UserVo vo) {
-		return sqlSession.insert("user.insert", vo);
-		
+	public void insert(UserVo vo) {
+		sqlSession.insert("user.insert", vo);
 	}
 
 	public UserVo findByNoAndPassword(String id, String password) {
 		System.out.println("## id, password: "+ id + ", " + password);
 		return sqlSession.selectOne("user.findByNoAndPassword", Map.of("id", id, "password", password));
+	}
+
+	public UserVo getUser(String id) {
+		
+		return sqlSession.selectOne("user.findByNo", id);
 	}
 
 }

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.poscodx.jblog.service.BlogService;
+import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.UserService;
 import com.poscodx.jblog.vo.UserVo;
 
@@ -13,6 +15,13 @@ import com.poscodx.jblog.vo.UserVo;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private BlogService blogService;
+	
+	@Autowired
+	private CategoryService categortyService;
+	
 	
 	// 회원가입(join)
 	@RequestMapping(value="/join", method=RequestMethod.GET)
@@ -23,9 +32,17 @@ public class UserController {
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(UserVo vo) {
 		System.out.println("## vo : " + vo);
-		userService.join(vo);
+		userService.join(vo);  // 유저 추가 
 		
-		System.out.println(" ========================= ");
+		String id= vo.getId();
+		// user에 추가가 완료되었는지 확인 
+		System.out.println("## user insert");
+		if(id!=null) {
+			blogService.join(id); // 블로그 생성
+			System.out.println("## blog insert");
+			categortyService.join(vo.getId(), vo.getName()); // 카테고리 생성
+			System.out.println("## category insert");
+		}
 		
 		return "user/joinsuccess";
 		
