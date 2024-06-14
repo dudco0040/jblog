@@ -1,14 +1,14 @@
 package com.poscodx.jblog.vo;
 
 public class BlogVo {
-	private Long id;
+	private String id;
 	private String title;
 	private String logo;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -26,6 +26,6 @@ public class BlogVo {
 	
 	@Override
 	public String toString() {
-		return "[BlogVo] id: " + id + ", title: " + title + ", log: " + logo;
+		return "[BlogVo] id: " + id + ", title: " + title + ", logo: " + logo;
 	}
 }
