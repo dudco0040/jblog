@@ -6,10 +6,17 @@
 		<![CDATA[
 			insert 
 			into category
-			values(null, #{name}, '환영합니다!' , current_date(), #{id})
+			values(null, #{name}, #{description} , current_date(), #{id})
 		]]>
-
 	</insert>
+	
+	<select id="getCategory" parameterType="String" resultType="CategoryVo">
+		<![CDATA[
+			select no, name, description
+			from category
+			where id = #{id}
+		]]>
+	</select>
 	
 
 </mapper>

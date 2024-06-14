@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.UserService;
+import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
@@ -33,14 +34,23 @@ public class UserController {
 	public String join(UserVo vo) {
 		System.out.println("## vo : " + vo);
 		userService.join(vo);  // 유저 추가 
-		
-		String id= vo.getId();
+	
 		// user에 추가가 완료되었는지 확인 
 		System.out.println("## user insert");
+		
+		String id= vo.getId();
 		if(id!=null) {
-			blogService.join(id); // 블로그 생성
+			// 블로그 생성
+			blogService.join(id); 
 			System.out.println("## blog insert");
-			categortyService.join(vo.getId(), vo.getName()); // 카테고리 생성
+			
+			// 카테고리 생성
+			// category default setting
+			CategoryVo categoryVo = new CategoryVo();
+			categoryVo.setId(vo.getId());
+			categoryVo.setName(vo.getName());
+			categoryVo.setDescription("welcome!");
+			categortyService.join(categoryVo); 
 			System.out.println("## category insert");
 		}
 		

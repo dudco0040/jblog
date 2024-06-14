@@ -1,9 +1,11 @@
 package com.poscodx.jblog.repository;
 
-import java.util.Map;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import com.poscodx.jblog.vo.CategoryVo;
 
 @Repository
 public class CategoryRepository {
@@ -14,9 +16,13 @@ public class CategoryRepository {
 	}
 	
 	// 카테고리 생성
-	public void insert(String id, String name) {
-		sqlSession.insert("category.insert", Map.of("id", id, "name", name));
+	public void insert(CategoryVo vo) {
+		sqlSession.insert("category.insert", vo);
 		
+	}
+
+	public List<CategoryVo> getCategory(String id) {
+		return sqlSession.selectList("category.getCategory", id);
 	}
 
 }
