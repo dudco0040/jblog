@@ -11,5 +11,15 @@
 	
 	</insert>
 	
+	<!-- 카테고리 별 개수 -->
+	<select id="getCount" parameterType="long" resultType="int">
+		<![CDATA[
+		select count(*)
+		from post
+		where category_no = #{categoryNo}
+		]]>
+	
+	</select>
+	
 </mapper>
 

@@ -15,4 +15,9 @@ public class PostService {
 		postRepository.insert(vo);
 	}
 
+	// 카테고리 별 포스트 개수 
+	public int count(Long categoryNo) {
+		return postRepository.count(categoryNo);
+	}
+
 }

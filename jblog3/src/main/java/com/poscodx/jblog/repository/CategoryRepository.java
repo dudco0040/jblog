@@ -21,8 +21,14 @@ public class CategoryRepository {
 		
 	}
 
+	// 카테고리 목록 보기 
 	public List<CategoryVo> getCategory(String id) {
 		return sqlSession.selectList("category.getCategorySummary", id);
+	}
+
+	// 카테고리 삭제 
+	public Object delete(Long no) {
+		return sqlSession.delete("category.delete", no);
 	}
 
 }

@@ -24,6 +24,11 @@ public class CategoryService {
 		return categoryRepository.getCategory(id);
 	}
 
+	// 카테고리 삭제 
+	public void delete(Long no) {
+		categoryRepository.delete(no);
+	}
+
 	// 카테고리 추가
 //	public void insert(CategoryVo vo) {
 //		categoryRepository.

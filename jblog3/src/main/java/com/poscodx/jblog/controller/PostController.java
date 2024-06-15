@@ -32,7 +32,6 @@ public class PostController {
 		List<CategoryVo> categories = categoryService.getCategory(id);  // 사용자 본인 카테고리만 보이게 
 		model.addAttribute("categories", categories);
 		
-		
 		return "/blog/write";
 	}
 	

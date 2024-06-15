@@ -41,13 +41,20 @@
 						<td>${category.name}</td>
 						<td>${category.countPost}</td>
 						<td>${category.description}</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>
+						<td>
+							<form action="${pageContext.request.contextPath}/${id}/blog/category/delete" method="post" style="display:inline;">
+      							<input type="hidden" name="categoryNo" value="${category.no}">
+      							<button type="submit" style="border:none; background:none; padding:0;">
+									<img src="${pageContext.request.contextPath}/assets/images/delete.jpg" alt="delete">
+								</button>
+				  			</form>
+						</td>
+						</tr>
 		 			</c:forEach>				  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
-      			<form action="${pageContext.request.contextPath}/${id}/blog/category/update" method="post">
+      			<form action="${pageContext.request.contextPath}/${id}/blog/category/insert" method="post">
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>

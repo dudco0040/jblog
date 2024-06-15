@@ -17,5 +17,11 @@ public class PostRepository {
 	public void insert(PostVo vo) {
 		sqlSession.insert("post.insert", vo);
 	}
+	
+	// 카테고리 별 포스트 개수 
+	public int count(Long categoryNo) {
+		return sqlSession.selectOne("post.getCount", categoryNo);
+		
+	}
 
 }
