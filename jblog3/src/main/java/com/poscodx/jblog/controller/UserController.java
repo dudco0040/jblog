@@ -34,8 +34,6 @@ public class UserController {
 	public String join(UserVo vo) {
 		System.out.println("## vo : " + vo);
 		userService.join(vo);  // 유저 추가 
-	
-		// user에 추가가 완료되었는지 확인 
 		System.out.println("## user insert");
 		
 		String id= vo.getId();
@@ -44,8 +42,7 @@ public class UserController {
 			blogService.join(id); 
 			System.out.println("## blog insert");
 			
-			// 카테고리 생성
-			// category default setting
+			// 카테고리 생성 (category default setting)
 			CategoryVo categoryVo = new CategoryVo();
 			categoryVo.setId(vo.getId());
 			categoryVo.setName(vo.getName());

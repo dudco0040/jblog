@@ -5,7 +5,7 @@ public class PostVo {
 	private String title;
 	private String contents;
 	private String regDate;
-	private Long CategoryNo;
+	private Long categoryNo;
 	
 	public Long getNo() {
 		return no;
@@ -32,11 +32,12 @@ public class PostVo {
 		this.regDate = regDate;
 	}
 	public Long getCategoryNo() {
-		return CategoryNo;
+		return categoryNo;
 	}
 	public void setCategoryNo(Long categoryNo) {
-		CategoryNo = categoryNo;
+		this.categoryNo = categoryNo;
 	}
+	
 	
 	@Override
 	public String toString() {
