@@ -22,7 +22,7 @@ public class CategoryRepository {
 	}
 
 	public List<CategoryVo> getCategory(String id) {
-		return sqlSession.selectList("category.getCategory", id);
+		return sqlSession.selectList("category.getCategorySummary", id);
 	}
 
 }

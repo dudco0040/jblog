@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="category">
+	<!-- 카테고리 추가 -->
 	<insert id="insert" parameterType="String">
 		<![CDATA[
 			insert 
@@ -10,10 +11,23 @@
 		]]>
 	</insert>
 	
-	<select id="getCategory" parameterType="String" resultType="CategoryVo">
+	<!-- 카테고리 목록 -->
+	<select id="getCategory" parameterType="String" resultType="categoryvo">
 		<![CDATA[
 			select no, name, description
 			from category
+			where id = #{id}
+		]]>
+	</select>
+	
+	<select id="getCategorySummary" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+			SELECT c.no, c.name, c.description, c.reg_date AS regDate, COALESCE(p.count, 0) AS countPost, c.id
+			FROM category c
+			LEFT JOIN (SELECT category_no, COUNT(*) AS count
+			FROM post
+			GROUP BY category_no) p 
+		    ON c.no = p.category_no
 			where id = #{id}
 		]]>
 	</select>

@@ -24,17 +24,19 @@ public class CategoryController {
 	@GetMapping("/blog/category")
 	public String category(@PathVariable("id") String id, Model model) {
 		// 목록 불러오기
-//		List<CategoryVo> list = categoryService.getCategory(id);
-//		System.out.println("## Category List: " + list);
+		List<CategoryVo> categorySummary = categoryService.getCategory(id);
+		System.out.println("## Category List: " + categorySummary);
 		
 		// 목록 (post 개수)
-		// model.add 
+		model.addAttribute("categorySummary", categorySummary);
 		
 		
 		model.addAttribute("id",id);
-		System.out.println();
+		System.out.println(id);
 		return "blog/category";
 	}
+	
+	
 	
 	// 카테고리 추가 
 	@PostMapping("/blog/category/update")

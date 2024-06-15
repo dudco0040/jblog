@@ -6,6 +6,15 @@ public class CategoryVo {
 	private String description;
 	private String regDate;
 	private String id;
+	private Long countPost;
+	
+	// add : column이 아닌 경우도 vo에 포함해도 되는가? 
+	public Long getCountPost() {
+		return countPost;
+	}
+	public void setCountPost(Long countPost) {
+		this.countPost = countPost;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -39,7 +48,8 @@ public class CategoryVo {
 	
 	@Override
 	public String toString() {
-		return "[CategoryVo] no: " + no + ", name: " + name + ", description: " + description + ", regDate: " + regDate + ", id: " + id ;
+		return "[CategoryVo] no: " + no + ", name: " + name + ", description: " + description + ", regDate: " + regDate + ", id: " + id + ","
+				+ " (add) countPost: " + countPost ;
 	}
 	
 	
