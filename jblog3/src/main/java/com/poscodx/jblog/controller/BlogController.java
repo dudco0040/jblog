@@ -1,5 +1,6 @@
 package com.poscodx.jblog.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.service.BlogService;
+import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.FileUploadService;
+import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
+import com.poscodx.jblog.vo.CategoryVo;
+import com.poscodx.jblog.vo.PostVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -21,18 +26,60 @@ public class BlogController {
 	private BlogService blogService;
 	
 	@Autowired
+	private CategoryService categortService;
+	
+	@Autowired
+	private PostService postService;
+	
+	@Autowired
 	private FileUploadService fileuploadService;
 	
-	
+	// 블로그(BLOG) 메인페이지 
 	@RequestMapping({"", "/{categoryNo:[\\\\\\\\d]+}", "/{categoryNo:[\\\\d]+}/{postNo:[\\\\d]+}" })
 	public String index(
-		@PathVariable("id") String id,
-		@PathVariable(value="categoryNo", required=false) Optional<Long> categoryNo,
-		@PathVariable(value="postNo", required=false) Optional<Long> postNo) {
+				@PathVariable("id") String id,
+				@PathVariable(value="categoryNo", required=false) Optional<Long> categoryNo,
+				@PathVariable(value="postNo", required=false) Optional<Long> postNo,
+				Model model) {
 
+		// 블로그 정보 반영
+		BlogVo vo = blogService.getBlog(id);
+		model.addAttribute("blogVo", vo);
+		System.out.println("=====" + vo);
+		
+		// main으로 들어온 경우, category 매핑
+		
+		// id를 받아서 category 목록 출력
+		List<CategoryVo> categories = categortService.getCategory(id);
+		model.addAttribute("categories", categories);
+		System.out.println("## categories: " + categories);  // name 사용
+
+		System.out.println("## ?category= " + categoryNo);
+		if(categoryNo.isPresent()) {
+			// id, category 받아서 post 목록 출력
+			System.out.println("## ?category= " + categoryNo);
+			Long categoryNoValue= categoryNo.orElse(null);
+		
+			List<PostVo> posts = postService.getPostList(id, categoryNoValue);
+			model.addAttribute("posts", posts);
+			System.out.println("## posts: " + posts);  // title, regDate
+			
+			if(postNo.isPresent()) {
+				// post 번호 받아서 값 출력 
+				Long postNoValue = postNo.orElse(null);
+				PostVo postVo = postService.getPost(categoryNoValue, postNoValue);
+				model.addAttribute("postVo", postVo);
+				System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
+
+			}
+		}
+		
+		
 		return "blog/main";
 	}
 	
+	
+	// 관리(ADMIN) 페이지 
 	// 블로그 정보 가져오기 
 	// @Auth
 	@RequestMapping("/admin/basic")
