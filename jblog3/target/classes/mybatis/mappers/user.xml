@@ -20,6 +20,16 @@
 		]]>
 	</select>
 	
+	<!-- 중복 ID 확인 -->
+	<select id="findId" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select *
+			from user
+			where id = #{id}
+		]]>
+	</select>
+	
+	
 	<!-- 회원가입 확인 -->
 	<select id="findByNo" parameterType="String" resultType="uservo">
 		<![CDATA[
@@ -62,6 +72,7 @@
 			</otherwise>
 		</choose>
 	</update>
+	
 	
 </mapper>
 

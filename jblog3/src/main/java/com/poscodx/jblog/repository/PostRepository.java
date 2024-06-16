@@ -31,13 +31,11 @@ public class PostRepository {
 	
 	// 카테고리 별 포스트 목록(MAIN)
 	public List<PostVo> getPostList(String id, Long categoryNo) {
-		
 		return sqlSession.selectOne("post.getCount", Map.of("id", id, "categoryNo", categoryNo));
 	}
 	
 	// 글 보기(MAIN)
 	public PostVo getPost(Long categoryNo, Long postNo) {
-		
 		return sqlSession.selectOne("post.getPost", Map.of("categoryNo", categoryNo, "postNo", postNo));
 	}
 

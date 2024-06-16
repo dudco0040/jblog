@@ -36,4 +36,9 @@ public class UserService {
 		return userRepository.findByNoAndPassword(id, password);
 	}
 
+	// 중복 ID 확인  
+	public UserVo getUser(String id) {
+		return userRepository.findById(id);
+	}
+
 }

@@ -30,4 +30,9 @@ public class UserRepository {
 		return sqlSession.selectOne("user.findByNo", id);
 	}
 
+	// 중복 ID 확인
+	public UserVo findById(String id) {
+		return sqlSession.selectOne("user.findId", id);
+	}
+
 }

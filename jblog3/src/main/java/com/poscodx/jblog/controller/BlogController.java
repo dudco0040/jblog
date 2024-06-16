@@ -35,7 +35,7 @@ public class BlogController {
 	private FileUploadService fileuploadService;
 	
 	// 블로그(BLOG) 메인페이지 
-	@RequestMapping({"", "/{categoryNo:[\\\\\\\\d]+}", "/{categoryNo:[\\\\d]+}/{postNo:[\\\\d]+}" })
+	@RequestMapping({"", "/{categoryNo}", "/{categoryNo:[\\d]+}/{postNo:[\\d]+}" })
 	public String index(
 				@PathVariable("id") String id,
 				@PathVariable(value="categoryNo", required=false) Optional<Long> categoryNo,
@@ -56,10 +56,10 @@ public class BlogController {
 
 		System.out.println("## ?category= " + categoryNo);
 		if(categoryNo.isPresent()) {
-			// id, category 받아서 post 목록 출력
-			System.out.println("## ?category= " + categoryNo);
+			// id, category 받아서 post 목록 출력 - post 가 없을 수 있음 - 개수를 먼저 세고, 있으면 리스트 출력? 0, 1, 여러개..? , jsp 파일은 어떻게..?
 			Long categoryNoValue= categoryNo.orElse(null);
-		
+			System.out.println("## ?category= " + categoryNoValue);
+			
 			List<PostVo> posts = postService.getPostList(id, categoryNoValue);
 			model.addAttribute("posts", posts);
 			System.out.println("## posts: " + posts);  // title, regDate
