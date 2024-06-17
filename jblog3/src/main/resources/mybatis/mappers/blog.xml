@@ -24,7 +24,7 @@
 	<insert id="insert" parameterType="string">
 	<![CDATA[
 		insert into blog
-		values(#{id}, 'welcome!', '/assets/images/spring-logo.png')
+		values(#{id}, 'welcome!', 'assets/images/spring-logo.jpg')
 	
 	]]>
 	</insert>
