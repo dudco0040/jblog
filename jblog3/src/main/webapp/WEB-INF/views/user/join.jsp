@@ -25,6 +25,7 @@ $(function() {
 				console.error(err);			
 			},
 			success: function(response){
+				console.log("AJAX 요청 성공:", response);
 				if(response.exist) {
 					alert("존재하는 ID 입니다. 다른 ID를 사용해 주세요.");
 					$("#blog-id").val("");
@@ -58,8 +59,7 @@ $(function() {
 			<label class="block-label" for="blog-id">아이디</label>
 			<input id="blog-id" name="id" type="text"> 
 			<input id="btn-checkemail" type="button" value="id 중복체크">
-			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
-
+			<img id="img-checkemail" src="${pageContext.request.contextPath}/assets/images/check.png" style="vertical-align:bottom; width:24px; height:24px; display:none">
 			<label class="block-label" for="password">패스워드</label>
 			<input id="password" name="password" type="password" />
 

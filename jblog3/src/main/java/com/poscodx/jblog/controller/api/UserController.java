@@ -22,7 +22,7 @@ public class UserController {
 		UserVo vo = userService.getUser(id);
 		System.out.println("======find check:" + vo);
 		
-		return Map.of("exist", vo);
+		return Map.of("exist", vo!=null);
 	}
 
 }
