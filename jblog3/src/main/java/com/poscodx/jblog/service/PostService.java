@@ -33,4 +33,14 @@ public class PostService {
 		return postRepository.getPost(categoryNo, postNo);
 	}
 
+	// 최근 포스트 번호 가져오기 
+	public Long currentPost(Long currentCategoryNo) {
+		return postRepository.currentPost(currentCategoryNo);
+	}
+
+	// 최근 글 불러오기 
+	public PostVo getRecentPost(Long categoryNoValue) {
+		return postRepository.getRecentPost(categoryNoValue);
+	}
+
 }

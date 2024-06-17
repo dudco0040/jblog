@@ -17,6 +17,7 @@
 			select no, name, description
 			from category
 			where id = #{id}
+			order by reg_date desc
 		]]>
 	</select>
 	
@@ -32,6 +33,7 @@
 		]]>
 	</select>
 	
+	<!-- 카테고리 삭제 -->
 	<delete id="delete" parameterType="long">
 		<![CDATA[
 		delete 
@@ -40,6 +42,17 @@
 		]]>
 	</delete>
 	
+	<!-- 최근 카테고리 번호 가져오기 -->
+	<select id="currentCategoryNo" parameterType = "string" resultType="long">
+		<![CDATA[
+			select no 
+			from category 
+			where id = #{id}
+			order by reg_date desc 
+			limit 1;
+			
+		]]>
+	</select>
 
 </mapper>
 

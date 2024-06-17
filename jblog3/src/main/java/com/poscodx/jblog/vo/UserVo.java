@@ -1,10 +1,19 @@
 package com.poscodx.jblog.vo;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UserVo {
+	@NotEmpty
 	private String id;
+	@NotEmpty
 	private String name;
+	@NotEmpty
+	@Length(min=3, max=16)
 	private String password;
 	private String joinDate;
+	
 	public String getId() {
 		return id;
 	}

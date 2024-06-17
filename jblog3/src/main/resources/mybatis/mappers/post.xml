@@ -28,6 +28,7 @@
 			select no, title, date_format(reg_date, '%Y-%m-%d') as regDate, category_no as categoryNo
 			from post
 			where category_no = #{categoryNo}
+			order by reg_date desc
 		]]>
 		
 	</select>
@@ -42,6 +43,29 @@
 		]]>
 	
 	</select>
+	
+	<!-- 최근 글 번호 가져오기 -->
+	<select id="currentPostNo" parameterType="long" resultType="long">
+		<![CDATA[
+			select no
+			from post 
+			where category_no = #{currentCategoryNo}
+			order by reg_date desc
+			limit 1
+		]]>
+	</select>
+	
+	<!-- 최근 글 가져오기 -->
+	<select id="getRecentPost" parameterType="long" resultType="postvo">
+		<![CDATA[
+			SELECT * 
+			FROM post 
+			WHERE category_no = #{categoryNo} 
+			ORDER BY reg_date DESC 
+			LIMIT 1
+		]]>
+	</select>
+	
 	
 </mapper>
 

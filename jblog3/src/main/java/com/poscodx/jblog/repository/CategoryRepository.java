@@ -31,4 +31,8 @@ public class CategoryRepository {
 		return sqlSession.delete("category.delete", no);
 	}
 
+	public Long currentCategory(String id) {
+		return sqlSession.selectOne("category.currentCategoryNo", id);
+	}
+
 }

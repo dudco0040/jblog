@@ -1,9 +1,7 @@
 package com.poscodx.jblog.repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -37,6 +35,16 @@ public class PostRepository {
 	// 글 보기(MAIN)
 	public PostVo getPost(Long categoryNo, Long postNo) {
 		return sqlSession.selectOne("post.getPost", Map.of("categoryNo", categoryNo, "postNo", postNo));
+	}
+
+	// 최근 게시물 번호 가져오기 
+	public Long currentPost(Long currentCategoryNo) {
+		return sqlSession.selectOne("post.currentPostNo", currentCategoryNo);
+	}
+
+	// 최근 글 불러오기 
+	public PostVo getRecentPost(Long categoryNoValue) {
+		return sqlSession.selectOne("post.getRecentPost", categoryNoValue);
 	}
 
 }

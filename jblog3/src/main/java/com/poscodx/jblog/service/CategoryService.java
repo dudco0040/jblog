@@ -29,6 +29,10 @@ public class CategoryService {
 		categoryRepository.delete(no);
 	}
 
+	public Long currentCategory(String id) {
+		return categoryRepository.currentCategory(id);
+	}
+
 	// 카테고리 추가
 //	public void insert(CategoryVo vo) {
 //		categoryRepository.
