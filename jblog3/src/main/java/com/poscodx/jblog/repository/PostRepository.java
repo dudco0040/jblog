@@ -24,14 +24,14 @@ public class PostRepository {
 	}
 	
 	// 카테고리 별 포스트 개수(ADMIN-category)
-	public int count(Long categoryNo) {
-		return sqlSession.selectOne("post.getCount", categoryNo);
+	public int count(Long categoryNoValue) {
+		return sqlSession.selectOne("post.getCount", categoryNoValue);
 		
 	}
 	
 	// 카테고리 별 포스트 목록(MAIN)
-	public List<PostVo> getPostList(String id, Long categoryNo) {
-		return sqlSession.selectOne("post.getCount", Map.of("id", id, "categoryNo", categoryNo));
+	public List<PostVo> getPostList(Long categoryNo) {
+		return sqlSession.selectList("post.getList", categoryNo);
 	}
 	
 	// 글 보기(MAIN)

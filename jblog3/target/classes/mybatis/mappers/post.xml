@@ -7,7 +7,7 @@
 		<![CDATA[
 			insert 
 			into post
-			values(null, #{title}, #{contents},now(), #{categoryNo})
+			values(null, #{title}, #{contents}, now(), #{categoryNo})
 		]]>
 	
 	</insert>
@@ -15,9 +15,9 @@
 	<!-- 카테고리 별 글 개수 -->
 	<select id="getCount" parameterType="long" resultType="int">
 		<![CDATA[
-		select count(*)
-		from post
-		where category_no = #{categoryNo}
+			select count(*)
+			from post
+			where category_no = #{categoryNo}
 		]]>
 	
 	</select>
@@ -25,17 +25,17 @@
 	<!-- 카테고리 글 목록 -->
 	<select id="getList" parameterType="map" resultType="postvo">
 		<![CDATA[
-		select * 
-		from post
-		where category_no = #{categoryNo}
-		and id = #{id}
+			select no, title, date_format(reg_date, '%Y-%m-%d') as regDate, category_no as categoryNo
+			from post
+			where category_no = #{categoryNo}
 		]]>
 		
 	</select>
 	
+	<!-- 글 보기 -->
 	<select id="getPost" parameterType="map" resultType="postvo">
 		<![CDATA[
-		select title, contentes
+		select title, contents
 		from post
 		where no = #{postNo}
 		and category_no = #{categoryNo}

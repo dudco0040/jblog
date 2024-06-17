@@ -47,25 +47,33 @@ public class BlogController {
 		model.addAttribute("blogVo", vo);
 		System.out.println("=====" + vo);
 		
-		// main으로 들어온 경우, category 매핑
+		// main으로 들어온 경우, category 매핑 - 비어있을 경우, default value(catgoryNo, postNo)을 지정
 		
-		// id를 받아서 category 목록 출력
+		// 1. id를 받아서 category 목록 출력
 		List<CategoryVo> categories = categortService.getCategory(id);
 		model.addAttribute("categories", categories);
 		System.out.println("## categories: " + categories);  // name 사용
-
 		System.out.println("## ?category= " + categoryNo);
+		
+
+		// 2. id, category 받아서 post 목록 출력
 		if(categoryNo.isPresent()) {
-			// id, category 받아서 post 목록 출력 - post 가 없을 수 있음 - 개수를 먼저 세고, 있으면 리스트 출력? 0, 1, 여러개..? , jsp 파일은 어떻게..?
 			Long categoryNoValue= categoryNo.orElse(null);
 			System.out.println("## ?category= " + categoryNoValue);
 			
-			List<PostVo> posts = postService.getPostList(id, categoryNoValue);
-			model.addAttribute("posts", posts);
-			System.out.println("## posts: " + posts);  // title, regDate
+			int postCount = postService.count(categoryNoValue);
+			System.out.println("## postCount:" + postCount);
 			
+			if(postCount>0) {  // post 가 없을 수 있음 - 개수를 먼저 세고, 있으면 리스트 출력? 0, 1, 여러개..? , jsp 파일은 어떻게..?
+				List<PostVo> posts = postService.getPostList(categoryNoValue);
+				model.addAttribute("posts", posts);
+				
+				System.out.println("## posts: " + posts);  // title, regDate
+			}
+			
+
+			// 3. post 번호 받아서 값 출력 
 			if(postNo.isPresent()) {
-				// post 번호 받아서 값 출력 
 				Long postNoValue = postNo.orElse(null);
 				PostVo postVo = postService.getPost(categoryNoValue, postNoValue);
 				model.addAttribute("postVo", postVo);

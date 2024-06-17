@@ -19,13 +19,13 @@ public class PostService {
 	}
 
 	// 카테고리 별 포스트 개수 
-	public int count(Long categoryNo) {
-		return postRepository.count(categoryNo);
+	public int count(Long categoryNoValue) {
+		return postRepository.count(categoryNoValue);
 	}
 	
 	// 카테고리 별 포스트 목록
-	public List<PostVo> getPostList(String id, Long categoryNo) {
-		return postRepository.getPostList(id, categoryNo);
+	public List<PostVo> getPostList(Long categoryNo) {
+		return postRepository.getPostList(categoryNo);
 	}
 
 	// 포스트 가져오기 
