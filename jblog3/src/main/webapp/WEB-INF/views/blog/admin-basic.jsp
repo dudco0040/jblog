@@ -23,12 +23,13 @@
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-							<input type='hidden' name='blog' value='${blogVo.logo }' >
 			      			<td><input type="text" size="40" name="title" value="${blogVo.title}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<td><img src="${pageContext.request.contextPath}/${blogVo.logo}"></td>      			
+			      			<td><img src="${pageContext.request.contextPath}/${blogVo.logo}">
+         				        <input type="hidden" name="logo" value="${blogVo.logo}">
+       				        </td>			
 			      		</tr>      		
 			      		<tr>
 			      			<td class="t">&nbsp;</td>
