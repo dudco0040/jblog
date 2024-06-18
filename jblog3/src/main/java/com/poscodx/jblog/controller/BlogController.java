@@ -93,21 +93,7 @@ public class BlogController {
                 model.addAttribute("postVo", postVo);
     			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
 
-		}
-//		else {
-//			Long currentCategoryNo = categortService.currentCategory(id);
-//			System.out.println("## Default Value (current categoryNo): " + currentCategoryNo);
-//			
-//			Long currentPostNo = postService.currentPost(currentCategoryNo);
-//			System.out.println("## Default Value (current currentPostNo): " + currentPostNo);
-//			
-//			if(currentPostNo==null) {
-//				//return "redirect:/" + id + "/" + currentCategoryNo;
-//			} else {
-//				//return "redirect:/" + id + "/" + currentCategoryNo + "/" + currentPostNo;
-//			}
-//			
-//		}
+			}
 		
 		}
 		return "blog/main";
@@ -150,13 +136,20 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id) {
+	public String adminCategory(@PathVariable("id") String id, Model model) {
+		BlogVo vo = blogService.getBlog(id);
+		System.out.println("## getBlog: " + vo);
+		model.addAttribute("blogVo", vo);
+
 		return "blog/admin-category";
 	}
 	
 	@Auth
 	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id) {
+	public String adminWrite(@PathVariable("id") String id, Model model) {
+		BlogVo vo = blogService.getBlog(id);
+		model.addAttribute("blogVo", vo);
+		
 		return "blog/admin-write";
 	}
 

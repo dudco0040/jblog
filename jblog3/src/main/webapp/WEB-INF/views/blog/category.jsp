@@ -11,14 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>바꿔줘야함 </h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/${authUser.id }/admin/basic">블로그 관리</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/header.jsp" />
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">

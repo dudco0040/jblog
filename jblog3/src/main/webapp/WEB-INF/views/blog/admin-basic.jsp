@@ -11,14 +11,7 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<h1>${blogVo.title }</h1>
-			<ul>
-				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-				<li><a href="">블로그 관리</a></li>
-			</ul>
-		</div>
+		<c:import url="/WEB-INF/views/include/header.jsp" />
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
@@ -30,6 +23,7 @@
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
+							<input type='hidden' name='blog' value='${blogVo.logo }' >
 			      			<td><input type="text" size="40" name="title" value="${blogVo.title}"></td>
 			      		</tr>
 			      		<tr>
