@@ -8,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.poscodx.jblog.service.BlogService;
-import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.UserService;
-import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.UserVo;
 
 @Controller
@@ -25,17 +23,19 @@ public class UserController {
 	
 	// 회원가입(join)
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
 	public String join(@Valid UserVo vo, BindingResult result, Model model) {
+		System.out.println(result.getAllErrors());
+		
 		// Bean Validation
 		if(result.hasErrors()) {
 			Map<String, Object> map = result.getModel();
 			model.addAttribute(map);
-			
+	
 			return "user/join";
 		}
 		
