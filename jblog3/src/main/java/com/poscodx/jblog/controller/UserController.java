@@ -40,7 +40,6 @@ public class UserController {
 	public String join(@Valid UserVo vo, BindingResult result, Model model) {
 		// Bean Validation
 		if(result.hasErrors()) {
-			// System.out.println(result);
 			Map<String, Object> map = result.getModel();
 			model.addAttribute(map);
 			

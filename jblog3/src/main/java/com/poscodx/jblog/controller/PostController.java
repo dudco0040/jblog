@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.PostService;
+import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
 
@@ -24,6 +26,9 @@ public class PostController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	@Autowired
+	private BlogService blogService; 
+	
 	// 관리 페이지로 이동
 	@RequestMapping(value="/blog/write", method=RequestMethod.GET)
 	public String write(@PathVariable("id") String id, Model model) {
@@ -31,6 +36,10 @@ public class PostController {
 		// 카테고리 목록 보이게 (split button)
 		List<CategoryVo> categories = categoryService.getCategory(id);  // 사용자 본인 카테고리만 보이게 
 		model.addAttribute("categories", categories);
+		
+		// 블로그 이름 
+		BlogVo blogVo = blogService.getBlog(id);
+		model.addAttribute("blogVo", blogVo);
 		
 		return "/blog/write";
 	}

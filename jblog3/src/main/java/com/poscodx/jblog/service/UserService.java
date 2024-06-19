@@ -19,9 +19,8 @@ public class UserService {
 		// user insert
 		userRepository.insert(vo);
 	
-		
-		
-		// user 추가가 완료된 경우, 블로그 생성과 카체고리 생성 
+
+		// user 추가가 완료된 경우, 블로그 생성과 카테고리 생성 
 //		System.out.println("========" + vo);
 //		if(userRepository.getUser(vo.getId()) != null) {;
 //			// blog insert

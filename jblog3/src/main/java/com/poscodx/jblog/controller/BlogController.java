@@ -3,6 +3,8 @@ package com.poscodx.jblog.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import com.poscodx.jblog.service.PostService;
 import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 import com.poscodx.jblog.vo.PostVo;
+import com.poscodx.jblog.vo.UserVo;
 
 @Controller
 @RequestMapping("/{id:(?!assets).*}")
@@ -41,7 +44,7 @@ public class BlogController {
 				@PathVariable("id") String id,
 				@PathVariable(value="categoryNo", required=false) Optional<Long> categoryNo,
 				@PathVariable(value="postNo", required=false) Optional<Long> postNo,
-				Model model) {
+				Model model, HttpSession session) {
 
 		// 블로그 정보 반영
 		BlogVo vo = blogService.getBlog(id);
@@ -96,6 +99,13 @@ public class BlogController {
 			}
 		
 		}
+		
+		
+		// 로그인 & 본인인증
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		model.addAttribute("authUser", authUser);
+		model.addAttribute("id", id);
+		
 		return "blog/main";
 	}
 	
@@ -104,53 +114,82 @@ public class BlogController {
 	// 블로그 정보 가져오기 
 	@Auth
 	@RequestMapping("/admin/basic")
-	public String adminBasic(@PathVariable("id") String id, Model model) {
-		System.out.println("## getBlog(id): " + id);
-		BlogVo vo = blogService.getBlog(id);
-		System.out.println("## getBlog: " + vo);
+	public String adminBasic(@PathVariable("id") String id, Model model, HttpSession session) {
 		
-		model.addAttribute("blogVo", vo);
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		System.out.println("## authUser: "+ authUser.getId());
 		
-		return "blog/admin-basic";
+		if(id.equals(authUser.getId())) {
+			System.out.println("## getBlog(id): " + id);
+			BlogVo vo = blogService.getBlog(id);
+			System.out.println("## getBlog: " + vo);
+			
+			model.addAttribute("blogVo", vo);
+			model.addAttribute("id", vo.getId());
+			
+			return "blog/admin-basic";
+		} else {
+			return "/main/index";
+		}
+		
+		
 	}
 	
 	// 블로그 정보 변경 
 	@Auth
 	@RequestMapping("/admin/update")
-	public String adminUpdate(BlogVo vo, @RequestParam(value="logo-file") MultipartFile file) {
-		
-		String logo = fileuploadService.restore(file);
-		if(logo != null) {
-			vo.setLogo(logo);
+	public String adminUpdate(BlogVo vo, @RequestParam(value="logo-file") MultipartFile file, HttpSession session) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		System.out.println("## authUser: "+ authUser.getId());
+		String id = vo.getId();
+		if(id.equals(authUser.getId())) {
+			String logo = fileuploadService.restore(file);
+			if(logo != null) {
+				vo.setLogo(logo);
+			}
+			
+			System.out.println("## updateFile(logo): " + logo);
+			System.out.println("## updateBlog Info: " + vo);
+			
+			blogService.updateBlog(vo);
+			
+			return "redirect:/" + vo.getId() +"/admin/basic";
+		} else {
+			return "/main/index";
 		}
-		
-
-		System.out.println("## updateFile(logo): " + logo);
-		System.out.println("## updateBlog Info: " + vo);
-		
-		blogService.updateBlog(vo);
-		
-		
-		return "redirect:/" + vo.getId() +"/admin/basic";
 	}
 
 	@Auth
 	@RequestMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id, Model model) {
-		BlogVo vo = blogService.getBlog(id);
-		System.out.println("## getBlog: " + vo);
-		model.addAttribute("blogVo", vo);
-
-		return "blog/admin-category";
+	public String adminCategory(@PathVariable("id") String id, Model model, HttpSession session) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		System.out.println("## authUser: "+ authUser.getId());
+		if(id.equals(authUser.getId())) {
+		
+			BlogVo vo = blogService.getBlog(id);
+			System.out.println("## getBlog: " + vo);
+			model.addAttribute("blogVo", vo);
+	
+			return "blog/admin-category";
+		} else {
+			return "/main/index";
+		}
 	}
 	
 	@Auth
 	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id, Model model) {
-		BlogVo vo = blogService.getBlog(id);
-		model.addAttribute("blogVo", vo);
+	public String adminWrite(@PathVariable("id") String id, Model model, HttpSession session) {
+		UserVo authUser= (UserVo) session.getAttribute("authUser");
+		System.out.println("## authUser: "+ authUser.getId());
+		if(id.equals(authUser.getId())) {
 		
-		return "blog/admin-write";
+			BlogVo vo = blogService.getBlog(id);
+			model.addAttribute("blogVo", vo);
+			
+			return "blog/admin-write";
+		} else {
+			return "/main/index";
+			}
 	}
 
 }

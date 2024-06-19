@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.PostService;
+import com.poscodx.jblog.vo.BlogVo;
 import com.poscodx.jblog.vo.CategoryVo;
 
 @Controller
@@ -24,18 +26,21 @@ public class CategoryController {
 	@Autowired
 	private PostService postService;
 	
+	@Autowired
+	private BlogService blogService; 
 	
 	// 카테고리 목록 관리 
 	@GetMapping("/blog/category")
 	public String category(@PathVariable("id") String id, Model model) {
 		// 목록 불러오기
 		List<CategoryVo> categorySummary = categoryService.getCategory(id);
-		// System.out.println("## Category List: " + categorySummary);
-		
-		//
 		model.addAttribute("categorySummary", categorySummary);
-		model.addAttribute("id",id);
-		
+		model.addAttribute("id", id);
+			
+		// 블로그 이름 
+		BlogVo blogVo = blogService.getBlog(id);
+		model.addAttribute("blogVo", blogVo);
+
 		return "blog/category";
 	}
 	

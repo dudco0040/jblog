@@ -12,10 +12,6 @@ public class BlogService {
 	@Autowired
 	private BlogRepository blogRepository;
 	
-	public BlogService(BlogRepository blogRepository) {
-		this.blogRepository = blogRepository;
-	}
-	
 	// 현재 정보 불러오기 
 	public BlogVo getBlog(String id) {
 		return blogRepository.find(id);

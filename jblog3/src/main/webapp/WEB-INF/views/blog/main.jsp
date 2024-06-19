@@ -14,9 +14,15 @@
 		<div id="header">
 			<h1>${blogVo.title}</h1>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+				<!-- login 한 경우만 -->
+				<c:if test="${empty authUser }">
+					<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+				</c:if>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-				<li><a href="${pageContext.request.contextPath}/${authUser.id }/admin/basic">블로그 관리</a></li>
+				<!-- 본인인 경우만 -->
+				<c:if test="${not empty authUser && authUser.id == id}">
+					<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">블로그 관리</a></li>
+				</c:if>
 			</ul>
 		</div>
 		<div id="wrapper">
@@ -45,7 +51,7 @@
 			<h2>카테고리</h2>
 			<c:forEach var="category" items="${categories}">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id }/${category.no }">${category.name }</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id}/${category.no }">${category.name }</a></li>
 				</ul>
 			</c:forEach>
 		</div>
