@@ -23,13 +23,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private BlogService blogService;
-	
-	@Autowired
-	private CategoryService categortyService;
-	
-	
 	// 회원가입(join)
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
@@ -46,24 +39,8 @@ public class UserController {
 			return "user/join";
 		}
 		
-		System.out.println("## vo : " + vo);
 		userService.join(vo);  // 유저 추가 
-		System.out.println("## user insert");
-		
-		String id= vo.getId();
-		if(id!=null) {
-			// 블로그 생성
-			blogService.join(id); 
-			System.out.println("## blog insert");
-			
-			// 카테고리 생성 (category default setting)
-			CategoryVo categoryVo = new CategoryVo();
-			categoryVo.setId(vo.getId());
-			categoryVo.setName("first category");
-			categoryVo.setDescription("welcome! " + vo.getName());
-			categortyService.join(categoryVo); 
-			System.out.println("## category insert");
-		}
+		System.out.println("## [success join] user info: " + vo);
 		
 		return "user/joinsuccess";
 		

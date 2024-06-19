@@ -57,7 +57,7 @@ public class CategoryController {
 		vo.setName(name);
 		vo.setDescription(description);
 		
-		categoryService.join(vo);
+		categoryService.insert(vo);
 		System.out.println("## category insert success! " + vo);
 		
 		return "redirect:/" + id + "/blog/category";

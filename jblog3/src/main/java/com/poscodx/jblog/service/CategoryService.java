@@ -14,7 +14,7 @@ public class CategoryService {
 	CategoryRepository categoryRepository;
 	
 	// 카테고리 생성 
-	public void join(CategoryVo vo) {
+	public void insert(CategoryVo vo) {
 		categoryRepository.insert(vo);
 		
 	}
@@ -31,13 +31,6 @@ public class CategoryService {
 
 	public Long currentCategory(String id) {
 		return categoryRepository.currentCategory(id);
-	}
-
-	// 카테고리 추가
-//	public void insert(CategoryVo vo) {
-//		categoryRepository.
-//	}
-	
-	
+	}	
 
 }

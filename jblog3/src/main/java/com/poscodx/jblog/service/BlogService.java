@@ -24,9 +24,9 @@ public class BlogService {
 	}
 
 	// 블로그 생성
-	@Transactional
-	public void join(String id) {
-		blogRepository.insert(id);
-	}
+//	@Transactional
+//	public void join(String id) {
+//		blogRepository.insert(id);
+//	}
 
 }

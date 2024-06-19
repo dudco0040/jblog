@@ -12,10 +12,7 @@
 					${blogVo.title }
 				</h1>
 			<ul>
-				<!-- login 한 경우만 -->
-				<c:if test="${empty authUser}">
-					<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
-				</c:if>
+				<!-- <li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>  -->
 				<li><a href="${pageContext.request.contextPath}/${id }">내 블로그</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 				<!-- <li><a href="">블로그 관리</a></li>  -->
