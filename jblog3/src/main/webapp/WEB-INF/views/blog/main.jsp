@@ -2,6 +2,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<script src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
+<script>
+$(function(){
+	$("#languages a").click(function(event){
+		event.preventDefault();
+		console.log($(this).data("lang"));
+		
+		document.cookie = 
+			"lang=" + $(this).data("lang") + ";" +				// name=value => resolver-locale: ko
+			"path=${pageContext.request.contextPath}" + ";" + 	// path 
+			"max-age=" + (30*24*60*60)							// max-age
+			
+		// reload
+		location.reload();
+	});
+});
+</script>
 <!doctype html>
 <html>
 <head>
@@ -13,6 +30,18 @@
 	<div id="container">
 		<div id="header">
 			<h1>${blogVo.title}</h1>
+			<div id="languages">
+				<c:choose>
+					<c:when test='${language == "en"}'>
+						<a href="" data-lang="ko">KR</a>
+						<a href="" class="active" data-lang="en">EN</a>
+					</c:when>
+					<c:otherwise>
+						<a href="" data-lang="ko" class="active">KR</a>
+						<a href="" data-lang="en">EN</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
 			<ul>
 				<!-- login 한 경우만 -->
 				<c:if test="${empty authUser }">
