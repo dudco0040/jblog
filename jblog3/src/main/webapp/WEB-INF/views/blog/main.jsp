@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <script src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
@@ -45,12 +46,12 @@ $(function(){
 			<ul>
 				<!-- login 한 경우만 -->
 				<c:if test="${empty authUser }">
-					<li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/login"><spring:message code="header.gnb.login" /></a></li>
 				</c:if>
-				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/logout"><spring:message code="header.gnb.logout" /></a></li>
 				<!-- 본인인 경우만 -->
 				<c:if test="${not empty authUser && authUser.id == id}">
-					<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">블로그 관리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${id}/admin/basic"><spring:message code="header.gnb.blogmanagement" /></a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -77,7 +78,7 @@ $(function(){
 		</div>
 
 		<div id="navigation">
-			<h2>카테고리</h2>
+			<h2><spring:message code="navigation.li.category" /></h2>
 			<c:forEach var="category" items="${categories}">
 				<ul>
 					<li><a href="${pageContext.request.contextPath}/${id}/${category.no }">${category.name }</a></li>

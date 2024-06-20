@@ -59,7 +59,7 @@
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
 	<property name="basenames"> 
 		<list> 
-			<value>messages/messages_ko</value> <value>messages/messages_en</value> 
+			<value>messages/message</value>
 		</list> 
 	</property> 
 	</bean>
@@ -81,6 +81,10 @@
 			<mvc:exclude-mapping path="/assets/**"/>
 			<bean class="com.poscodx.jblog.security.AuthInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.poscodx.jblog.interceptor.BlogInterceptor" />
+		</mvc:interceptor>	
 	</mvc:interceptors>
 	
 
