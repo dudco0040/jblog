@@ -30,7 +30,7 @@ public class BlogController {
 	private BlogService blogService;
 	
 	@Autowired
-	private CategoryService categortService;
+	private CategoryService categoryService;
 	
 	@Autowired
 	private PostService postService;
@@ -56,22 +56,24 @@ public class BlogController {
 		
 		
 		// 1. id를 받아서 category 목록 출력
-		List<CategoryVo> categories = categortService.getCategory(id);
+		List<CategoryVo> categories = categoryService.getCategory(id);
 		model.addAttribute("categories", categories);
 		System.out.println("## categories: " + categories);  // name 사용
 		System.out.println("## ?category= " + categoryNo);
 		
 
 		// 2. id, category 받아서 post 목록 출력
-		Long categoryNoValue;
-		if(categoryNo.isPresent()) {
-			categoryNoValue = categoryNo.orElse(null);
-			System.out.println("## ?category= " + categoryNoValue);
-		} else {
-			// category가 없는 경우 최근 카테고리를 가져옴 
-			categoryNoValue = categortService.currentCategory(id); 
-			System.out.println("## Default Value (current categoryNo): " + categoryNoValue);
-		}
+//		Long categoryNoValue;
+//		if(categoryNo.isPresent()) {
+//			categoryNoValue = categoryNo.orElse(null);
+//			System.out.println("## ?category= " + categoryNoValue);
+//		} else {
+//			// category가 없는 경우 최근 카테고리를 가져옴 
+//			categoryNoValue = categoryService.currentCategory(id); 
+//			System.out.println("## Default Value (current categoryNo): " + categoryNoValue);
+//		}
+		Long categoryNoValue = categoryNo.orElseGet(() -> categoryService.currentCategory(id));
+
 		
 		int postCount = postService.count(categoryNoValue);
 		System.out.println("## postCount:" + postCount);
@@ -84,21 +86,29 @@ public class BlogController {
 		}
 		
 		// 3. post 번호 받아서 값 출력 
-		if(postNo.isPresent()) {
-			Long postNoValue = postNo.orElse(null);
-			PostVo postVo = postService.getPost(categoryNoValue, postNoValue);
-			model.addAttribute("postVo", postVo);
-			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
-
-		} else {
-			if (postCount > 0) {
-                PostVo postVo = postService.getRecentPost(categoryNoValue);
-                model.addAttribute("postVo", postVo);
-    			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
-
-			}
+//		if(postNo.isPresent()) {
+//			Long postNoValue = postNo.orElse(null);
+//			PostVo postVo = postService.getPost(categoryNoValue, postNoValue);
+//			model.addAttribute("postVo", postVo);
+//			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
+//
+//		} else {
+//			if (postCount > 0) {
+//                PostVo postVo = postService.getRecentPost(categoryNoValue);
+//                model.addAttribute("postVo", postVo);
+//    			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
+//
+//			}
+//		
+//		}
 		
+		PostVo postVo = postNo.map(postNoValue -> postService.getPost(categoryNoValue, postNoValue))
+                .orElseGet(() -> postCount > 0 ? postService.getRecentPost(categoryNoValue) : null);
+		
+		if (postVo != null) {
+		model.addAttribute("postVo", postVo);
 		}
+
 		
 		
 		// 로그인 & 본인인증
@@ -129,7 +139,7 @@ public class BlogController {
 			
 			return "blog/admin-basic";
 		} else {
-			return "/main/index";
+			return "redirect:/main/index";
 		}
 		
 		
@@ -155,7 +165,7 @@ public class BlogController {
 			
 			return "redirect:/" + vo.getId() +"/admin/basic";
 		} else {
-			return "/main/index";
+			return "redirect:/main/index";
 		}
 	}
 
@@ -172,7 +182,7 @@ public class BlogController {
 	
 			return "blog/admin-category";
 		} else {
-			return "/main/index";
+			return "redirect:/main/index";
 		}
 	}
 	
@@ -188,7 +198,7 @@ public class BlogController {
 			
 			return "blog/admin-write";
 		} else {
-			return "/main/index";
+			return "redirect:/main/index";
 			}
 	}
 

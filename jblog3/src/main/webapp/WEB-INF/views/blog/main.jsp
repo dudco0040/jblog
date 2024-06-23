@@ -65,7 +65,7 @@ $(function(){
 				</div>
 				<ul class="blog-list">
 					<c:forEach var="post" items="${posts}">
-						<li><a href="${pageContext.request.contextPath}/${authUser.id}/${post.categoryNo}/${post.no}">${post.title}</a> <span>${post.regDate}</span>	</li>
+						<li><a href="${pageContext.request.contextPath}/${id}/${post.categoryNo}/${post.no}">${post.title}</a> <span>${post.regDate}</span>	</li>
 					</c:forEach>
 				</ul>
 			</div>

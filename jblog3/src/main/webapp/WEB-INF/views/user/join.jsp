@@ -16,6 +16,7 @@ $(function() {
 	$("#btn-checkemail").click(function() {
 		var id = $("#blog-id").val();
 		if(id == '') {
+			alert("ID를 입력하세요.");
 			return;
 		}
 		
@@ -73,7 +74,7 @@ $(function() {
 			</spring:hasBindErrors>
 	
 			<label class="block-label" for="blog-id">아이디</label>
-			<form:input path="id" /> 
+			<form:input path="id" id="blog-id" /> 
 			<input id="btn-checkemail" type="button" value="id 중복체크">
 			<img id="img-checkemail" src="${pageContext.request.contextPath}/assets/images/check.png" style="vertical-align:bottom; width:24px; height:24px; display:none">
 			<spring:hasBindErrors name="userVo">
