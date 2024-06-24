@@ -12,7 +12,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 
 @Configuration
-@PropertySource("classpath:com/poscodx/jblog/app/jdbc.properties")
+@PropertySource("classpath:com/poscodx/jblog/config/app/jdbc.properties")
 public class DBConfig {
 	@Autowired
 	private Environment env;
