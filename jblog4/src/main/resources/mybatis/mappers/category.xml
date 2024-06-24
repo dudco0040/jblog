@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	<!-- 카테고리 추가 -->
+	<insert id="insert" parameterType="String">
+		<![CDATA[
+			insert 
+			into category
+			values(null, #{name}, #{description} , current_date(), #{id})
+		]]>
+	</insert>
+	
+	<!-- 카테고리 목록 -->
+	<select id="getCategory" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+			select no, name, description
+			from category
+			where id = #{id}
+			order by reg_date desc
+		]]>
+	</select>
+	
+	<select id="getCategorySummary" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+			SELECT c.no, c.name, c.description, c.reg_date AS regDate, COALESCE(p.count, 0) AS countPost, c.id
+			FROM category c
+			LEFT JOIN (SELECT category_no, COUNT(*) AS count
+			FROM post
+			GROUP BY category_no) p 
+		    ON c.no = p.category_no
+			where id = #{id}
+		]]>
+	</select>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+		delete 
+		from category
+		where no = #{no}
+		]]>
+	</delete>
+	
+	<!-- 최근 카테고리 번호 가져오기 -->
+	<select id="currentCategoryNo" parameterType = "string" resultType="long">
+		<![CDATA[
+			select no 
+			from category 
+			where id = #{id}
+			order by reg_date desc 
+			limit 1;
+			
+		]]>
+	</select>
+
+</mapper>
+
