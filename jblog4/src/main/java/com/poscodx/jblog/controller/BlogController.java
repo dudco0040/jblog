@@ -39,13 +39,19 @@ public class BlogController {
 	private FileUploadService fileuploadService;
 	
 	// 블로그(BLOG) 메인페이지 
-	@RequestMapping({"", "/{categoryNo}", "/{categoryNo:[\\d]+}/{postNo:[\\d]+}" })
+	@RequestMapping({"", "/{categoryNo:\\d+}", "/{categoryNo:\\d+}/{postNo:\\d+}"})
 	public String index(
 				@PathVariable("id") String id,
 				@PathVariable(value="categoryNo", required=false) Optional<Long> categoryNo,
 				@PathVariable(value="postNo", required=false) Optional<Long> postNo,
 				Model model, HttpSession session) {
 
+	    // 디버깅 로그 추가
+	    System.out.println("PathVariable id: " + id);
+	    System.out.println("PathVariable categoryNo: " + categoryNo);
+	    System.out.println("PathVariable postNo: " + postNo);
+
+		
 		// 블로그 정보 반영
 		BlogVo vo = blogService.getBlog(id);
 		model.addAttribute("blogVo", vo);

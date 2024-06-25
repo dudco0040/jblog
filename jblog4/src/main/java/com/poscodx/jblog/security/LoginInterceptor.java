@@ -14,10 +14,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Autowired
 	private UserService userService;
 	
-	public LoginInterceptor(UserService userService) {
-		this.userService = userService;
-	}
-	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
