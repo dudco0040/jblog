@@ -1,0 +1,40 @@
+package com.poscodx.jblog.dto;
+
+import com.poscodx.jblog.dto.JsonResult;
+
+public class JsonResult {
+	private String result;		// "success" of "fail"
+	private String message;		// if fail set/ null of "error message(exception message)"
+	private Object data;		// if success set
+	
+	
+	private JsonResult(Object data) {
+		result = "success";
+		this.data = data;
+	}
+	
+	private JsonResult(String message) {
+		result = "fail";
+		this.message = message;
+	}
+	
+	public static JsonResult success(Object data) {
+		return new JsonResult(data);
+	}
+	
+	public static JsonResult fail(String message) {
+		return new JsonResult(message);
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public Object getData() {
+		return data;
+	}
+}
