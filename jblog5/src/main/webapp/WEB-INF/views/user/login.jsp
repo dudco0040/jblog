@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -16,8 +17,10 @@
 		<ul class="menu">
 			<li><a href="">로그인</a></li>
 			<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
+			<sec:authorize access="isAuthenticated()">
 			<li><a href="">로그아웃</a></li>
 			<li><a href="">내블로그</a></li>
+			</sec:authorize>
 		</ul>
 		<form class="login-form"  method="post" action="${pageContext.request.contextPath}/user/auth">
       		<label>아이디</label> <input type="text" name="id">

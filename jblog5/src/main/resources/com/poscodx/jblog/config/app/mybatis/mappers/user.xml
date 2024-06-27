@@ -7,7 +7,7 @@
 		<![CDATA[
 			insert 
 			into user 
-			values(#{id}, #{name}, password(#{password }), current_date())
+			values(#{id}, #{name}, #{password }, current_date())
 		]]>
 	</insert>
 	
@@ -16,12 +16,21 @@
 		<![CDATA[
 			select id, name, password
 			from user
-			where id = #{id} and password = password(#{password})
+			where id = #{id} and password = #{password}
 		]]>
 	</select>
 	
 	<!-- 중복 ID 확인 -->
 	<select id="findId" parameterType="string" resultType="uservo">
+		<![CDATA[
+			select *
+			from user
+			where id = #{id}
+		]]>
+	</select>
+	
+	<!-- 인증 ID 확인 -->
+	<select id="findId2" parameterType="string" resultType="userdetails">
 		<![CDATA[
 			select *
 			from user

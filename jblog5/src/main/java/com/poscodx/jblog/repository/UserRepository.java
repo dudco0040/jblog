@@ -3,6 +3,7 @@ package com.poscodx.jblog.repository;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import com.poscodx.jblog.vo.UserVo;
@@ -33,6 +34,11 @@ public class UserRepository {
 	// 중복 ID 확인
 	public UserVo findById(String id) {
 		return sqlSession.selectOne("user.findId", id);
+	}
+
+	// 인증 ID 확인 
+	public UserDetails findById2(String id) {
+		return sqlSession.selectOne("user.findId2", id);
 	}
 
 }

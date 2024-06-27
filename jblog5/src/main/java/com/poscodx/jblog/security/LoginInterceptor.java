@@ -17,7 +17,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		

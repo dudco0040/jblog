@@ -18,7 +18,7 @@ import com.poscodx.jblog.interceptor.BlogInterceptor;
 @Configuration
 @EnableAspectJAutoProxy
 @ComponentScan({"com.poscodx.jblog.controller", "com.poscodx.jblog.exception"})
-@Import({MvcConfig.class, LocaleConfig.class, SecurityConfig.class, FileUploadConfig.class})
+@Import({MvcConfig.class, LocaleConfig.class, FileUploadConfig.class})
 public class WebConfig implements WebMvcConfigurer {
 	
 	// Blog Interceptor
