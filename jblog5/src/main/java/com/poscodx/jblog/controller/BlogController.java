@@ -129,7 +129,7 @@ public class BlogController {
 			
 			return "blog/admin-basic";
 		} else {
-			return "redirect:/main/index";
+			return "redirect:/";
 		}
 		
 		
@@ -161,7 +161,7 @@ public class BlogController {
 			
 			return "redirect:/" + vo.getId() +"/admin/basic";
 		} else {
-			return "redirect:/main/index";
+			return "redirect:/";
 		}
 	}
 
@@ -184,7 +184,7 @@ public class BlogController {
 	
 			return "blog/admin-category";
 		} else {
-			return "redirect:/main/index";
+			return "redirect:/";
 		}
 	}
 	
@@ -206,7 +206,7 @@ public class BlogController {
 			
 			return "blog/admin-write";
 		} else {
-			return "redirect:/main/index";
+			return "redirect:/";
 			}
 	}
 
