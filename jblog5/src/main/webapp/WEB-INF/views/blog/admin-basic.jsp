@@ -30,7 +30,7 @@
 				      		</tr>
 				      		<tr>
 				      			<td class="t">로고이미지</td>
-				      			<td><img src="${pageContext.request.contextPath}${blogVo.logo}">
+				      			<td><img src="${pageContext.request.contextPath}/${blogVo.logo}">
 	         				        <input type="hidden" name="logo" value="${blogVo.logo}">
 	       				        </td>			
 				      		</tr>      		

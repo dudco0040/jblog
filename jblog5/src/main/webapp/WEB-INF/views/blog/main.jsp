@@ -78,7 +78,7 @@ $(function(){
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}${blogVo.logo}">
+				<img src="${pageContext.request.contextPath}/${blogVo.logo}">
 			</div>
 		</div>
 

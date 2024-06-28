@@ -21,18 +21,9 @@
 	</select>
 	
 	<!-- 중복 ID 확인 -->
-	<select id="findId" parameterType="string" resultType="uservo">
+	<select id="findId" parameterType="string" resultType="map">
 		<![CDATA[
-			select *
-			from user
-			where id = #{id}
-		]]>
-	</select>
-	
-	<!-- 인증 ID 확인 -->
-	<select id="findId2" parameterType="string" resultType="userdetails">
-		<![CDATA[
-			select *
+			select id, password
 			from user
 			where id = #{id}
 		]]>
@@ -51,8 +42,6 @@
 
 	<!-- = -->
 
-
-
 	<select id="findByEmail" parameterType="string" resultType="uservo">
 		<![CDATA[
 			select no, name, email, gender 
@@ -62,8 +51,6 @@
 	</select>
 	
 	<update id="update" parameterType="uservo">
-	
-	
 		<choose>
 			<when test="">
 				<![CDATA[
@@ -81,7 +68,6 @@
 			</otherwise>
 		</choose>
 	</update>
-	
 	
 </mapper>
 

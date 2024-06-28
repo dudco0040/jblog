@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.poscodx.jblog.repository.UserRepository;
+import com.poscodx.jblog.vo.UserVo;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 	@Autowired
@@ -13,8 +14,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-		System.out.println("## check: " + userRepository.findById2(id));
-		return userRepository.findById2(id);
+		System.out.println("## check: " + userRepository.findById(id, UserVo.class));
+		return userRepository.findById(id, UserDetailsImpl.class);
 	}
 
 }

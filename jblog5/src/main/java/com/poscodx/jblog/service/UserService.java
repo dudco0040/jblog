@@ -53,7 +53,7 @@ public class UserService {
 
 	// 중복 ID 확인  
 	public UserVo getUser(String id) {
-		return userRepository.findById(id);
+		return userRepository.findById(id, UserVo.class);
 	}
 
 }
