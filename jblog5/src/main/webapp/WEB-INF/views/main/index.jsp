@@ -19,8 +19,9 @@
 				<li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-			<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
-			<li><a href="${pageContext.request.contextPath}/${principal.username}">내블로그</a></li>
+			<sec:authentication property="principal" var="principal"/>
+				<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+				<li><a href="${pageContext.request.contextPath}/${principal.id}">내블로그</a></li>
 			</sec:authorize>
 		</ul>
 		<form class="search-form">

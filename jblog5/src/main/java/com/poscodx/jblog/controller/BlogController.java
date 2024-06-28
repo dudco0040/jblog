@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poscodx.jblog.security.Auth;
+import com.poscodx.jblog.security.UserDetailsImpl;
 import com.poscodx.jblog.service.BlogService;
 import com.poscodx.jblog.service.CategoryService;
 import com.poscodx.jblog.service.FileUploadService;
@@ -69,15 +71,6 @@ public class BlogController {
 		
 
 		// 2. id, category 받아서 post 목록 출력
-//		Long categoryNoValue;
-//		if(categoryNo.isPresent()) {
-//			categoryNoValue = categoryNo.orElse(null);
-//			System.out.println("## ?category= " + categoryNoValue);
-//		} else {
-//			// category가 없는 경우 최근 카테고리를 가져옴 
-//			categoryNoValue = categoryService.currentCategory(id); 
-//			System.out.println("## Default Value (current categoryNo): " + categoryNoValue);
-//		}
 		Long categoryNoValue = categoryNo.orElseGet(() -> categoryService.currentCategory(id));
 
 		
@@ -92,21 +85,6 @@ public class BlogController {
 		}
 		
 		// 3. post 번호 받아서 값 출력 
-//		if(postNo.isPresent()) {
-//			Long postNoValue = postNo.orElse(null);
-//			PostVo postVo = postService.getPost(categoryNoValue, postNoValue);
-//			model.addAttribute("postVo", postVo);
-//			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
-//
-//		} else {
-//			if (postCount > 0) {
-//                PostVo postVo = postService.getRecentPost(categoryNoValue);
-//                model.addAttribute("postVo", postVo);
-//    			System.out.println("## post: " + postVo.getTitle() + ", " + postVo.getContents());
-//
-//			}
-//		
-//		}
 		
 		PostVo postVo = postNo.map(postNoValue -> postService.getPost(categoryNoValue, postNoValue))
                 .orElseGet(() -> postCount > 0 ? postService.getRecentPost(categoryNoValue) : null);
@@ -118,8 +96,8 @@ public class BlogController {
 		
 		
 		// 로그인 & 본인인증
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		model.addAttribute("authUser", authUser);
+//		UserVo authUser= (UserVo) session.getAttribute("authUser");
+//		model.addAttribute("authUser", authUser);
 		model.addAttribute("id", id);
 		
 		return "blog/main";
@@ -130,12 +108,18 @@ public class BlogController {
 	// 블로그 정보 가져오기 
 	@Auth
 	@RequestMapping("/admin/basic")
-	public String adminBasic(@PathVariable("id") String id, Model model, HttpSession session) {
+	public String adminBasic(@PathVariable("id") String id, Model model, HttpSession session, Authentication authentication) {
 		
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		System.out.println("## authUser: "+ authUser.getId());
+		UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+		String authenticatedUserId = userDetails.getUsername();
+		System.out.println("====================================================");
+		System.out.println("## authenticatedUserId: " + authenticatedUserId);
+
 		
-		if(id.equals(authUser.getId())) {
+//		UserVo authUser= (UserVo) session.getAttribute("authUser");
+//		System.out.println("## authUser: "+ authUser.getId());
+		
+		if(id.equals(authenticatedUserId)) {
 			System.out.println("## getBlog(id): " + id);
 			BlogVo vo = blogService.getBlog(id);
 			System.out.println("## getBlog: " + vo);
@@ -154,11 +138,17 @@ public class BlogController {
 	// 블로그 정보 변경 
 	@Auth
 	@RequestMapping("/admin/update")
-	public String adminUpdate(BlogVo vo, @RequestParam(value="logo-file") MultipartFile file, HttpSession session) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		System.out.println("## authUser: "+ authUser.getId());
+	public String adminUpdate(BlogVo vo, @RequestParam(value="logo-file") MultipartFile file, HttpSession session, Authentication authentication) {
+		UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+		String authenticatedUserId = userDetails.getUsername();
+		System.out.println("====================================================");
+		System.out.println("## authenticatedUserId: " + authenticatedUserId);
+		
+		
+//		UserVo authUser= (UserVo) session.getAttribute("authUser");
+//		System.out.println("## authUser: "+ authUser.getId());
 		String id = vo.getId();
-		if(id.equals(authUser.getId())) {
+		if(id.equals(authenticatedUserId)) {
 			String logo = fileuploadService.restore(file);
 			if(logo != null) {
 				vo.setLogo(logo);
@@ -177,10 +167,16 @@ public class BlogController {
 
 	@Auth
 	@RequestMapping("/admin/category")
-	public String adminCategory(@PathVariable("id") String id, Model model, HttpSession session) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		System.out.println("## authUser: "+ authUser.getId());
-		if(id.equals(authUser.getId())) {
+	public String adminCategory(@PathVariable("id") String id, Model model, HttpSession session, Authentication authentication) {
+		UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+		String authenticatedUserId = userDetails.getUsername();
+		System.out.println("====================================================");
+		System.out.println("## authenticatedUserId: " + authenticatedUserId);
+		
+		
+//		UserVo authUser= (UserVo) session.getAttribute("authUser");
+//		System.out.println("## authUser: "+ authUser.getId());
+		if(id.equals(authenticatedUserId)) {
 		
 			BlogVo vo = blogService.getBlog(id);
 			System.out.println("## getBlog: " + vo);
@@ -194,10 +190,16 @@ public class BlogController {
 	
 	@Auth
 	@RequestMapping("/admin/write")
-	public String adminWrite(@PathVariable("id") String id, Model model, HttpSession session) {
-		UserVo authUser= (UserVo) session.getAttribute("authUser");
-		System.out.println("## authUser: "+ authUser.getId());
-		if(id.equals(authUser.getId())) {
+	public String adminWrite(@PathVariable("id") String id, Model model, HttpSession session, Authentication authentication) {
+		UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+		String authenticatedUserId = userDetails.getUsername();
+		System.out.println("====================================================");
+		System.out.println("## authenticatedUserId: " + authenticatedUserId);
+		
+		
+//		UserVo authUser= (UserVo) session.getAttribute("authUser");
+//		System.out.println("## authUser: "+ authUser.getId());
+		if(id.equals(authenticatedUserId)) {
 		
 			BlogVo vo = blogService.getBlog(id);
 			model.addAttribute("blogVo", vo);

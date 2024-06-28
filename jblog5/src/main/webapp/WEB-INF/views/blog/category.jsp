@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -15,9 +16,12 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">기본설정</a></li>
-					<li class="selected">카테고리</li>
-					<li><a href="${pageContext.request.contextPath}/${id}/blog/write">글작성</a></li>
+					<sec:authorize access="isAuthenticated()">
+					<sec:authentication property="principal" var="principal"/>
+						<li><a href="${pageContext.request.contextPath}/${id}/admin/basic">기본설정</a></li>
+						<li class="selected">카테고리</li>
+						<li><a href="${pageContext.request.contextPath}/${id}/blog/write">글작성</a></li>
+					</sec:authorize>
 				</ul>
 		      	<table class="admin-cat">
 		      		<tr>
