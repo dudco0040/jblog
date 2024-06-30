@@ -1,0 +1,69 @@
+# spring configuration
+spring:
+   application:
+      name: jblog
+
+   # devtools-live reload
+   devtools:
+      livereload:
+         enable: true
+
+   # aop
+   aop:
+      auto: true
+      proxy-target-class: true
+
+   # mvc
+   mvc:
+      static-path-pattern: /assets/**
+      throw-exception-if-no-handler-found: true
+      # view:
+      #   prefix: /WEB-INF/views
+      #   suffix: .jsp
+
+   # web
+   web:
+      resource:
+         static-locations: file:/jblog-uploads/, classpath:assets/
+
+   # message resources(i18n)
+   messages:
+      basename: messages/message
+      encoding: utf-8
+      always-use-message-format: true
+
+   # multipart
+   servlet:
+      multipart:
+         enabled: true
+         max-file-size: 50MB
+         max-request-size: 10MB
+
+   # datasource
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://192.168.0.202:3306/jblog?charset=utf8
+      username: jblog
+      password: jblog
+      hikari:
+         minimun-idle: 10
+         maximum-pool-size: 50
+
+# mybatis
+mybatis:
+   config-location: classpath:mybatis/configuration.xml
+
+# server configuration
+server:
+   port: 8088
+   servlet:
+      context-path: /jblog6
+      encoding:
+         charset: utf-8
+         enable: true
+
+# logging
+logging:
+   config: classpath:logback.xml
+
+      
