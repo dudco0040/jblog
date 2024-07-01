@@ -47,6 +47,6 @@ public class MvcConfig implements WebMvcConfigurer{
 		registry
 			.addInterceptor(blogInterceptor())
 			.addPathPatterns("/**")
-			.excludePathPatterns("/assets/**");
+			.excludePathPatterns("assets/**");
 	}
 }
