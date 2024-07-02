@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>404 Not Found</h1>
+	<h1>Unknown : Custom</h1>
 	<p>
-		요청하신 자원을 찾을 수 없습니다. 
+		?
 	</p>
 </body>
 </html>

@@ -55,13 +55,13 @@ public class GlobalExceptionHandler {
 			// 4. 사과(정상 종료)
 			if(e instanceof NoHandlerFoundException) {
 				request
-				.getRequestDispatcher("/errors/404")
+				.getRequestDispatcher("/error/404")
 				.forward(request, response);
 				
 			} else {
 				request.setAttribute("error", errors.toString());
 				request
-				.getRequestDispatcher("/errors/500")
+				.getRequestDispatcher("/error/500")
 				.forward(request, response);
 			}
 		}

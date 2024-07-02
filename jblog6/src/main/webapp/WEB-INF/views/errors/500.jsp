@@ -9,9 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Exception Handler: Spring</h1>
-	<hr>
-	<pre style="color: #fe1100">
+		<h1>Internal Server Error(500) : Custom</h1>
+		<hr>
+		<pre style="color: #fe1100">
 	${error }
 	</pre>
 </body>
